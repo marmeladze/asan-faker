@@ -1,0 +1,11 @@
+sample:  
+   machineA:
+      details: windows
+      name: testing
+      processes:
+        - {process1: "A", process2: "c:/A.exe", process3: "something"}
+   machineB:
+      details: windows
+      name: dev
+      processes:
+        - {process1: "B", process2: "c:/B.exe", process3: "something"}

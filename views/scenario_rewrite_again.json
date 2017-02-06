@@ -1,0 +1,86 @@
+{
+  "initial": "auth",
+  "scenes": {
+    "auth": {
+      "before": {
+        "type": "asign",
+        "output": {
+          "$api.ziya.token": null,
+          "$data.invoice": null
+        }
+      },
+      "requires": {},
+      "template": {
+        "name": "input.phone",
+        "attributes": {
+          "phone": {
+            "flush": true,
+            "type": "text",
+            "value": "$data.phoneNumber",
+            "maxlength": 12,
+            "mask": "9**9*9999",
+            "placeholder": "enter your phone number"
+          }
+        }
+      },
+      "junctions": {
+        "exit": {
+          "target": "exit"
+        },
+        "next": {
+          "target": "search"
+        }
+      }
+    },
+    "search": {
+      "template": {
+        "name": "single_invoice",
+        "attributes": {
+          "name": "$data.invoice.name",
+          "voen": "$data.invoice.number",
+          "debet_amount": "$data.invoice.debt"
+        }
+      },
+      "requires": {
+        "$data.invoice": {
+          "required": true,
+          "else": [
+            {
+              "type": "remote",
+              "url": {
+                "pattern": "http://10.10.34.64:4567/searchphone/:phone/:secret_key",
+                "params": {
+                  "phone": "$data.phoneNumber",
+                  "secret_key": "e23w212312"
+                }
+              },
+              "dataType": "json",
+              "contentType": "application/json",
+              "method": "GET",
+              "input": null,
+              "validate": {
+                "#name": {
+                  "required": true
+                },
+                "#debt": {
+                  "required": true
+                }
+              },
+              "output": {
+                "$data.invoice.name": "#name",
+                "$data.invoice.debt": "#debt",
+                "$data.invoice.number": "#number"
+              }
+            }
+          ]
+        }
+      },
+      "junctions": {
+        "cancel": {
+          "target": "auth"
+        },
+        "checkout": "checkout"
+      }
+    }
+  }
+}

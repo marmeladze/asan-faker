@@ -1,0 +1,29 @@
+
+<!-- begin snippet: js hide: false console: true babel: false -->
+
+<!-- language: lang-js -->
+
+<!-- language: lang-html -->
+
+     <input type="date" id="startDate" value="2014-02-28"/>
+
+     <input type="date" id="endDate" value="2014-03-01"/>
+
+    <div id="result"></div>
+
+<!-- end snippet -->
+
+<script>
+  
+    let a_day = 1000*60*60*24; //ms
+
+    [].forEach.call(document.getElementsByTagName("input"), function(e){
+      e.addEventListener('change', function(){
+        var s = new Date(document.getElementById("startDate").value).getTime();
+        var e = new Date(document.getElementById("endDate").value).getTime();
+        
+        document.getElementById("result").innerHTML = (s > e ? "Start should be less than end date" : Math.round((e-s)/a_day)+" days" )
+    })
+    });
+
+</script>
