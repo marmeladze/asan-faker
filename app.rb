@@ -27,7 +27,7 @@ get '/searchphone/:phone/:secret' do
   content_type :json
   phone_num = params[:phone]
   debt = (phone_num.to_i)%100
-  { name: "Ziya Bayramov", number: phone_num, debt: debt }.to_json
+  { name: "şokolad marmeladze", number: phone_num, debt: debt }.to_json
 end
 
 
