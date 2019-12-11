@@ -5,7 +5,7 @@
       "before": {
         "type": "asign",
         "output": {
-          "$api.ziya.token": null,
+          "$api.marmeladze.token": null,
           "$data.invoice": null
         }
       },
